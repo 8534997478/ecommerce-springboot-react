@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import cardImg from "../assets/loginCard.png";
 import { FiArrowRight } from "react-icons/fi";
 
 const Login = () => {
@@ -71,7 +70,7 @@ const Login = () => {
         {/* RIGHT: IMAGE (HIDDEN ONLY ON MOBILE) */}
         <div className="hidden md:block md:w-1/2">
           <img
-            src={cardImg}
+            src={"/loginCard.png"}
             alt="Ethnic Fashion"
             className="h-full w-full "
           />
