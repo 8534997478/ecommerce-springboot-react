@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="bg-rose-900 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-[#8b1c62] text-white px-6 py-4 flex justify-between items-center font-heading">
       <Link to="/" className="text-2xl font-bold tracking-wide">
         VASTRAA
-        <span className="text-yellow-500 ml-1">.</span>
       </Link>
 
       <div className="space-x-6">
