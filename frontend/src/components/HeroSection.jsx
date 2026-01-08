@@ -7,7 +7,7 @@ const HeroSection = () => {
 
                 {/* LEFT: TEXT */}
                 <div className="md:w-1/2 text-center md:text-left md:ml-5">
-                    <p className="text-[#8b1c62] font-heading tracking-wide uppercase mb-2">
+                    <p className="text-[#8b1c62] font-heading font-bold tracking-wide uppercase mb-2">
                         Elegance Redefined
                     </p>
 
@@ -22,7 +22,7 @@ const HeroSection = () => {
 
                     <Link
                         to="/products"
-                        className="inline-block bg-[#8b1c62] text-white px-8 py-3 rounded-full hover:bg-[#6b1b4a] transition font-semibold"
+                        className="inline-block bg-[#8b1c62] text-white px-8 py-3 rounded-full hover:bg-[#6b1b4a] hover:scale-x-105 transition font-semibold"
                     >
                         Shop Now
                     </Link>
