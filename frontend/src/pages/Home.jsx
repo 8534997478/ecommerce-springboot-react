@@ -1,17 +1,17 @@
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import CategorySection from "../components/CategorySection";
-import FeaturedProducts from "../components/FeaturedProducts";
-import OfferSection from "../components/OfferSection";
-import  WhyChooseVastraa from "../components/WhyChooseVastraa";
-import Testimonials from "../components/Testimonials";
-import NewsletterSection from "../components/Newsletter";
-import Footer from "../components/Footer";
+// import Navbar from "../components/Navbar";
+import HeroSection from "../components/home/HeroSection";
+import CategorySection from "../components/home/CategorySection";
+import FeaturedProducts from "../components/home/FeaturedProducts";
+import OfferSection from "../components/home/OfferSection";
+import  WhyChooseVastraa from "../components/home/WhyChooseVastraa";
+import Testimonials from "../components/home/Testimonials";
+import NewsletterSection from "../components/home/Newsletter";
+import Footer from "../components/home/Footer";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <HeroSection />
       <CategorySection />
       <FeaturedProducts />

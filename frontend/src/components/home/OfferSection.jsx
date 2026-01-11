@@ -1,8 +1,8 @@
 const offerData = {
-    title: "Wedding Season Sale!",
+    title: "New Year Flash Sale!",
     subtitle: "Celebrate Ethnic Elegance",
     description:
-        "Flat 20% OFF on premium ethnic wear. Limited time festive offer!",
+        "Buy 1 Get 1 Free. Limited time festive offer!",
     ctaText: "Shop Now",
     leftImage: "/offerBanner2.png",
     rightImage: "/offerBanner1.png",
@@ -42,9 +42,9 @@ const OfferSection = () => {
 
                             <p className="mb-6 text-white/90 leading-relaxed">
                                 <span className="font-semibold text-yellow-200">
-                                    Flat 20% OFF
+                                    Buy 1 Get 1 Free.
                                 </span>{" "}
-                                on premium ethnic wear. Limited time festive offer!
+                                Limited time New Year offer!
                             </p>
 
                             <div className="relative inline-flex flex-col items-center">

@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center 
+    <div className="h-full py-16 flex items-center justify-center 
                    md:bg-gray-200 px-4">
 
       <div className="flex w-auto max-w-4xl bg-white rounded-xl

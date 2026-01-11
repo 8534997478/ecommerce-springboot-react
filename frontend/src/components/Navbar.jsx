@@ -1,30 +1,35 @@
 import { Link } from "react-router-dom";
 import { FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-[#8b1c62] text-white px-6 py-4 font-heading relative">
+    <nav className="bg-[#8b1c62]/95 text-white px-6 py-4 font-heading  fixed top-0 left-0 w-full z-50
+       backdrop-blur-md shadow-sm">
       <div className="flex items-center justify-between">
 
         {/* LOGO */}
-        <Link
-          to="/"
-          className="text-2xl font-bold tracking-widest transition"
-        >
+        <Link to="/" className="text-2xl font-bold tracking-widest transition">
           VASTRAA
         </Link>
 
         {/* DESKTOP LINKS */}
         <div className="hidden md:flex space-x-8 text-sm uppercase tracking-wide">
-          <Link to="/" className="hover:text-[#d4af37] transition">
-            Home
-          </Link>
-          <Link to="/products" className="hover:text-[#d4af37] transition">
-            Shop
-          </Link>
+          <NavLink to="/"
+            className={({ isActive }) =>
+              isActive ? "text-[#d4af37]  shadow-[0_0_25px_rgba(245,240,206,0.50) " : " hover:text-[#d4af37]"}>
+            <span>Home</span>
+          </NavLink>
+          <NavLink to="/shop"
+            className={({ isActive }) =>
+              isActive ? "text-[#d4af37]  shadow-[0_0_25px_rgba(245,240,206,0.50) " : " hover:text-[#d4af37]"}>
+            <span>Shop</span>
+          </NavLink>
+
         </div>
 
         {/* RIGHT ICONS */}
@@ -64,7 +69,7 @@ const Navbar = () => {
               Home
             </Link>
 
-            <Link to="/products" onClick={() => setOpen(false)} className="hover:text-[#d4af37]">
+            <Link to="/shop" onClick={() => setOpen(false)} className="hover:text-[#d4af37]">
               Shop
             </Link>
 
