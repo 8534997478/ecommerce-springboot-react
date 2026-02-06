@@ -9,7 +9,7 @@ const FilterSidebar = () => {
   const MIN_PRICE = 0;
   const MAX_PRICE = 20000;
 
-  const [minPrice, setMinPrice] = useState(3815);
+  const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(12641);
 
   const handleMinChange = (value) => {

@@ -6,14 +6,8 @@ const ProductGallery = forwardRef(({ images }, ref) => {
   return (
     <div ref={ref}>
       {/* MAIN IMAGE */}
-      <img
-        src={activeImage}
-        alt="Product"
+      <img src={activeImage} alt="Product"
         className="w-full object-contain rounded-lg"
-        onLoad={() => {
-          // triggers height calculation when image loads
-          if (ref?.current) ref.current.style.height = "auto";
-        }}
       />
 
       {/* THUMBNAILS */}

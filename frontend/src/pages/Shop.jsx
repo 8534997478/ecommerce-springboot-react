@@ -2,6 +2,8 @@ import ShopHeader from "../components/shop/ShopHeader";
 import FilterSidebar from "../components/shop/FilterSidebar";
 import MobileFilter from "../components/shop/MobileFilter";
 import ProductGrid from "../components/shop/ProductGrid";
+import products from "../data/products";
+
 
 const Shop = () => {
   return (
@@ -20,7 +22,7 @@ const Shop = () => {
       </div>
 
       {/* CONTENT */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 mb-10">
         <div className="flex h-screen overflow-hidden gap-8">
 
           {/* FILTERS (Desktop) */}
@@ -54,8 +56,8 @@ const Shop = () => {
               </select>
             </div>
 
-            <div className="flex-1 overflow-y-auto scrollbar-hide p-4">
-              <ProductGrid />
+            <div className="flex-1 overflow-y-auto scrollbar-hide p-4 ">
+              <ProductGrid products={products} />
             </div>
           </div>
 

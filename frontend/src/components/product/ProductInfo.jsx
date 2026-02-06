@@ -1,39 +1,112 @@
-import SizeSelector from "./SizeSelector";
-import { FaTruck, FaGlobeAsia, FaCheckCircle } from "react-icons/fa";
-import { FaTag, FaCopy, FaCheck } from "react-icons/fa";
 import { useState } from "react";
+import SizeSelector from "./SizeSelector";
+import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+
+import {
+    FaTruck,
+    FaGlobeAsia,
+    FaCheckCircle,
+    FaTag,
+    FaCopy,
+    FaCheck,
+} from "react-icons/fa";
+import { notyf } from "../../utils/notyf";
 
 const ProductInfo = ({ product }) => {
-    const discount =
-        product.originalPrice &&
-        Math.round(
+    const { addToCart } = useCart(); // ✅ IMPORTANT
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [copied, setCopied] = useState(false);
+    const navigate = useNavigate();
+
+    const couponCode = "VAS03";
+
+    const discount = product.originalPrice && Math.round
+        (
             ((product.originalPrice - product.price) / product.originalPrice) * 100
         );
-    const checkDelivery = () => {
-        if (pincode.length === 6) {
-            setDeliveryMsg("Delivery available by 3–5 business days");
-        } else {
-            setDeliveryMsg("Enter a valid pincode");
-        }
-    };
-
-    const [copied, setCopied] = useState(false);
-    const couponCode = "BIG1";
 
     const handleCopy = () => {
         navigator.clipboard.writeText(couponCode);
         setCopied(true);
-
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000);
+        setTimeout(() => setCopied(false), 2000);
     };
+
+    const handleAddToCart = () => {
+        const finalSize = selectedSize || product.sizes?.[0];
+        addToCart(product, finalSize, 1);
+
+        const cartItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.images?.[0],
+            size: finalSize,
+            quantity: 1,
+            availableSizes: product.sizes,
+        }; notyf.success("Added to Cart")
+        // NEXT STEP: send this to Cart Context / backend
+    };
+
+    // const handleBuyNow = () => {
+    //     // const finalSize = selectedSize || product.sizes?.[0];
+    //     if (!selectedSize) {
+    //         alert("Please select the size.");
+    //     }
+
+    //     const buyNowItem = {
+    //         productId: product.id,
+    //         name: product.name,
+    //         price: product.price,
+    //         originalPrice: product.originalPrice,
+    //         image: product.images?.[0],
+    //         size: selectedSize,
+    //         quantity: 1,
+    //     };
+
+    //     localStorage.setItem(
+    //         "buyNowItem",
+    //         JSON.stringify([buyNowItem])
+    //     );
+
+    //     navigate("/checkout?type=buynow");
+    // };
+
+    const handleBuyNow = () => {
+        if (!selectedSize) {
+            return;
+        }
+
+        const buyNowItem = {
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            originalPrice: product.originalPrice,
+            image: product.images?.[0],
+            size: selectedSize,
+            quantity: 1,
+        };
+
+        localStorage.setItem(
+            "buyNowItem",
+            JSON.stringify(buyNowItem)
+        );
+
+        navigate("/checkout?type=buynow");
+    };
+
 
 
     return (
         <div>
-            <h1 className="font-heading text-3xl tracking-wide mb-3">{product.name}</h1>
-            <p className="text-gray-600 tracking-wide mb-6">{product.description}</p>
+            {/* TITLE */}
+            <h1 className="font-heading text-3xl tracking-wide mb-3">
+                {product.name}
+            </h1>
+
+            <p className="text-gray-600 tracking-wide mb-6">
+                {product.description}
+            </p>
 
             {/* PRICE */}
             <div className="mb-4" id="price-section">
@@ -55,7 +128,6 @@ const ProductInfo = ({ product }) => {
                     )}
                 </div>
 
-                {/* SAVED AMOUNT */}
                 {product.originalPrice && (
                     <div className="text-lg mt-3">
                         <p className="text-[#007900] font-medium">
@@ -68,32 +140,103 @@ const ProductInfo = ({ product }) => {
                     </div>
                 )}
             </div>
-            <SizeSelector sizes={product.sizes} />
-            <div className="mt-5 border-t py-5">
-                <p className="text-sm px-1 text-gray-600 tracking-wider mb-1">500K+ Happy Customers | 1 Million+ Followers</p>
-                <button className="w-full  bg-[#8b1c62] text-white py-3 tracking-widest font-bold  rounded-xl hover:opacity-90 transition">
-                    ADD TO CART
-                </button>
 
+            {/* SIZE SELECTOR */}
+            <SizeSelector
+                sizes={product.sizes}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
+            />
+
+            {/* ADD TO CART */}
+            <div className="mt-5 border-t py-5">
+                <p className="text-sm px-1 text-gray-600 tracking-wider mb-1">
+                    500K+ Happy Customers | 1 Million+ Followers
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-4">
+                    <button
+                        onClick={handleAddToCart}
+                        className="w-full bg-[#8b1c62] text-white py-3 tracking-widest font-bold rounded-xl hover:opacity-90 transition"
+                    >
+                        Add to Cart
+                    </button>
+                    {/* <button
+                        onClick={() => {
+                            const buyNowProduct = {
+                                ...product,
+                                quantity: 1,
+                            };
+
+                            localStorage.setItem(
+                                "buyNowItem",
+                                JSON.stringify(buyNowProduct)
+                            );
+
+                            navigate("/checkout?type=buynow");
+                        }}
+                        className="bg-[#8b1c62] text-white py-3 font-bold rounded-xl"
+                    >
+                        Buy Now
+                    </button> */}
+                    {/* 
+                    <button
+                        onClick={() => {
+                            localStorage.setItem(
+                                "buyNowItem",
+                                JSON.stringify({
+                                    ...product,
+                                    size: selectedSize,
+                                    quantity: 1,
+                                })
+                            );
+
+                            navigate("/checkout?type=buynow");
+                        }}
+                        className="bg-[#8b1c62] text-white py-3 font-bold rounded-xl"
+                    >
+                        Buy Now
+                    </button> */}
+
+                    <div className="relative group">
+                        <button
+                            onClick={handleBuyNow}
+                            disabled={!selectedSize}
+                            className={`w-full py-3 font-bold rounded-xl transition-all ${selectedSize
+                                    ? "bg-[#8b1c62] text-white cursor-pointer hover:bg-[#6d1550]"
+                                    : "bg-[#8b1c62] text-white cursor-not-allowed"
+                                }`}
+                        >
+                            Buy Now
+                        </button>
+
+                        {/* Tooltip that shows on hover when size is not selected */}
+                        {!selectedSize && (
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 
+                            bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity 
+                            duration-200 whitespace-nowrap pointer-events-none">
+                                Select size first
+                                <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 
+                                border-transparent border-t-gray-800"></div>
+                            </div>
+                        )}
+                    </div>
+
+
+
+
+                </div>
             </div>
 
-            {/* offersection */}
             {/* ADDITIONAL OFFERS */}
             <div className="mt-6">
-                <h3 className="text-lg font-medium mb-3">
-                    Additional Offers
-                </h3>
+                <h3 className="text-lg font-medium mb-3">Additional Offers</h3>
 
                 <div className="space-y-3">
-
-                    {/* OFFER 1 */}
                     <div className="border border-dashed rounded-lg p-4 flex gap-3">
                         <FaTag className="text-[#8b1c62] mt-1" />
-
                         <div className="flex-1">
-                            <p className="font-semibold">
-                                BUY 1 GET 1 FREE
-                            </p>
+                            <p className="font-semibold">BUY 1 GET 1 FREE</p>
                             <p className="text-sm text-gray-600">
                                 Buy 1 Get 1 FREE on Prepaid Orders
                             </p>
@@ -101,15 +244,13 @@ const ProductInfo = ({ product }) => {
                             <div className="flex items-center gap-2 mt-2 text-sm">
                                 <span>
                                     Use Coupon Code:
-                                    <span className="font-semibold ml-1">
-                                        {couponCode}
-                                    </span>
+                                    <span className="font-semibold ml-1">{couponCode}</span>
                                 </span>
 
                                 <button
                                     onClick={handleCopy}
                                     className={`flex items-center gap-1 border border-dashed px-2 py-0.5 rounded transition
-                                     ${copied
+                  ${copied
                                             ? "bg-green-600 text-white border-green-600"
                                             : "text-[#8b1c62] hover:bg-[#8b1c62] hover:text-white"
                                         }`}
@@ -128,7 +269,6 @@ const ProductInfo = ({ product }) => {
                         </div>
                     </div>
 
-                    {/* OFFER 2 */}
                     <div className="border border-dashed rounded-lg p-4 flex gap-3">
                         <FaTag className="text-[#8b1c62] mt-1" />
                         <div>
@@ -138,66 +278,63 @@ const ProductInfo = ({ product }) => {
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-
-            {/* offerbanner  */}
-            <div className="mb-2">
-                <div className="py-5">
-                    <img src="../flashSale2.png"
-                        onClick={() =>
-                            document
-                                .getElementById("price-section")
-                                ?.scrollIntoView({ behavior: "smooth" })
-                        }
-                        className="cursor-pointer"
-                    />
-                </div>
-                <div className="mt-6 space-y-3 text-lg text-gray-700">
-                    <div className="flex items-center gap-3">
-                        <FaTruck className="text-[#8b1c62]" />
-                        <span>Free Shipping on Prepaid & COD</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <FaGlobeAsia className="text-[#8b1c62]" />
-                        <span>Worldwide Shipping Available</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <FaCheckCircle className="text-green-500" />
-                        <span>In Stock</span>
-                    </div>
-                </div>
-
-                <div className="mt-8 space-y-3 text-sm">
-                    <details className="border-b pb-2 cursor-pointer">
-                        <summary className="font-medium">Delivery & Shipping</summary>
-                        <p className="mt-2 text-gray-600">
-                            Delivered within 5–7 business days.
-                        </p>
-                    </details>
-
-                    <details className="border-b pb-2 cursor-pointer">
-                        <summary className="font-medium">Return & Exchange</summary>
-                        <p className="mt-2 text-gray-600">
-                            Easy 7-day return and exchange available.
-                        </p>
-                    </details>
-
-                    <details className="border-b pb-2 cursor-pointer">
-                        <summary className="font-medium">Care Instructions</summary>
-                        <p className="mt-2 text-gray-600">
-                            Hand wash separately. Do not bleach.
-                        </p>
-                    </details>
-                </div>
-
-
+            {/* OFFER BANNER */}
+            <div className="py-5">
+                <img
+                    src="../flashSale2.png"
+                    onClick={() =>
+                        document
+                            .getElementById("price-section")
+                            ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="cursor-pointer"
+                />
             </div>
 
+            {/* DELIVERY INFO */}
+            <div className="mt-6 space-y-3 text-lg text-gray-700">
+                <div className="flex items-center gap-3">
+                    <FaTruck className="text-[#8b1c62]" />
+                    <span>Free Shipping on Prepaid & COD</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <FaGlobeAsia className="text-[#8b1c62]" />
+                    <span>Worldwide Shipping Available</span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <FaCheckCircle className="text-green-500" />
+                    <span>In Stock</span>
+                </div>
+            </div>
+
+            {/* ACCORDIONS */}
+            <div className="mt-8 space-y-3 text-sm">
+                <details className="border-b pb-2 cursor-pointer">
+                    <summary className="font-medium">Delivery & Shipping</summary>
+                    <p className="mt-2 text-gray-600">
+                        Delivered within 5–7 business days.
+                    </p>
+                </details>
+
+                <details className="border-b pb-2 cursor-pointer">
+                    <summary className="font-medium">Return & Exchange</summary>
+                    <p className="mt-2 text-gray-600">
+                        Easy 7-day return and exchange available.
+                    </p>
+                </details>
+
+                <details className="border-b pb-2 cursor-pointer">
+                    <summary className="font-medium">Care Instructions</summary>
+                    <p className="mt-2 text-gray-600">
+                        Hand wash separately. Do not bleach.
+                    </p>
+                </details>
+            </div>
         </div>
     );
 };

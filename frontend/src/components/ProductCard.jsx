@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
 
     return (
         <Link to={`/product/${product.id}`} className="block">
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden">
+            <div className="bg-white rounded-xl md:shadow-md md:hover:shadow-xl transition overflow-hidden">
 
                 {/* IMAGE */}
                 <div className="relative overflow-hidden group mt-0 sm:mt-5">
@@ -30,8 +30,8 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-3 text-center">
-                    <h3 className="font-heading text-lg mb-1">
+                <div className="p-2 md:p-3 text-center">
+                    <h3 className="font-heading text-lg md:mb-1">
                         {product.name}
                     </h3>
 

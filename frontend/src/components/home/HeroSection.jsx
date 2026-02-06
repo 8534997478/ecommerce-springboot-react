@@ -20,9 +20,8 @@ const HeroSection = () => {
                         and modern elegance.
                     </p>
 
-                    <Link
-                        to="/products"
-                        className="inline-block bg-[#8b1c62] text-white px-8 py-3 rounded-full hover:bg-[#6b1b4a] hover:scale-x-105 transition font-semibold"
+                    <Link to="/shop" className="inline-block bg-[#8b1c62] text-white px-8 py-3 
+                    rounded-full hover:bg-[#6b1b4a] hover:scale-x-105 transition font-semibold"
                     >
                         Shop Now
                     </Link>

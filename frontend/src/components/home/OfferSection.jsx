@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 const offerData = {
     title: "New Year Flash Sale!",
     subtitle: "Celebrate Ethnic Elegance",
     description:
-        "Buy 1 Get 1 Free. Limited time festive offer!",
+        "Buy 1 Get 1 Free. Limited time New Year offer!",
     ctaText: "Shop Now",
     leftImage: "/offerBanner2.png",
     rightImage: "/offerBanner1.png",
@@ -48,14 +49,16 @@ const OfferSection = () => {
                             </p>
 
                             <div className="relative inline-flex flex-col items-center">
-                                <button
-                                    className=" relative z-10 bg-white text-[#8b1c62] px-5 py-3 rounded-full font-semibold tracking-wide
+                                <Link to="/shop">
+                                    <button
+                                        className=" relative z-10 bg-white text-[#8b1c62] px-5 py-3 rounded-full font-semibold tracking-wide
                                     shadow-[0_12px_30px_rgba(0,0,0,0.25)] hover:shadow-2xl  transition duration-300 animate-bounce-slow hover:animate-none">
-                                    Explore Collection
-                                </button>
+                                        Explore Collection
+                                    </button>
+                                </Link>
 
                                 <span
-                                    className="absolute-bottom-2 w-24 h-3 bg-black/50 blur-md rounded-full animate-shadow-bounce"/>
+                                    className="absolute-bottom-2 w-24 h-3 bg-black/50 blur-md rounded-full animate-shadow-bounce" />
                             </div>
 
                         </div>

@@ -8,7 +8,7 @@ const NewsletterSection = () => {
                     Join Our Inner Circle
                 </h2>
                 <p className="text-[#8b1c62] max-w-xl mx-auto mb-8 font-semibold">
-                    Be the first to receive exclusive offers, festive launches,
+                    Be the first to receive exclusive offers, New launches,
                     and premium ethnic fashion updates.
                 </p>
 

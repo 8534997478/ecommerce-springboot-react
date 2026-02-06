@@ -6,7 +6,6 @@ import OfferSection from "../components/home/OfferSection";
 import  WhyChooseVastraa from "../components/home/WhyChooseVastraa";
 import Testimonials from "../components/home/Testimonials";
 import NewsletterSection from "../components/home/Newsletter";
-import Footer from "../components/home/Footer";
 
 const Home = () => {
   return (
@@ -19,7 +18,6 @@ const Home = () => {
       <WhyChooseVastraa/>
       <Testimonials/>
       <NewsletterSection/>
-      <Footer/>
 
     </>
   );

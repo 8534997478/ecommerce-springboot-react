@@ -2,7 +2,7 @@ import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className=" text-white bg-[#8b1c62] pt-14 pb-8">
+        <footer className=" text-white bg-[#8b1c62]  pt-14 pb-8">
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 sm:grid-col-2 md:grid-cols-4 gap-10 ">
 
                 {/* Brand */}
@@ -16,7 +16,7 @@ const Footer = () => {
                 {/* Links */}
                 <div>
                     <h4 className="font-semibold text-[#d4af37] mb-4 ">Quick Links</h4>
-                    <ul className="space-y-2 text-white/90 text-sm ">
+                    <ul className="space-y-2 text-white/90 text-sm cursor-pointer">
                         <li className="hover:text-[#d4af37]">Home</li>
                         <li className="hover:text-[#d4af37]">Shop</li>
                         <li className="hover:text-[#d4af37]">Collections</li>
@@ -27,7 +27,7 @@ const Footer = () => {
                 {/* Support */}
                 <div>
                     <h4 className="font-semibold text-[#d4af37] mb-4">Support</h4>
-                    <ul className="space-y-2 text-white/90 text-sm">
+                    <ul className="space-y-2 text-white/90 text-sm cursor-pointer">
                         <li className="hover:text-[#d4af37]">Shipping & Returns</li>
                         <li className="hover:text-[#d4af37]">Privacy Policy</li>
                         <li className="hover:text-[#d4af37]">Terms & Conditions</li>

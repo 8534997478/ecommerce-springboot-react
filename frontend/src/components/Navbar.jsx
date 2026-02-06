@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import { FiMenu, FiX, FiShoppingCart, FiUser } from "react-icons/fi";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { cartItems } = useCart();
+  const cartCount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <nav className="bg-[#8b1c62]/95 text-white px-6 py-4 font-heading  fixed top-0 left-0 w-full z-50
@@ -29,13 +34,27 @@ const Navbar = () => {
               isActive ? "text-[#d4af37]  shadow-[0_0_25px_rgba(245,240,206,0.50) " : " hover:text-[#d4af37]"}>
             <span>Shop</span>
           </NavLink>
+          <NavLink to="/my-orders"
+            className={({ isActive }) =>
+              isActive ? "text-[#d4af37]  shadow-[0_0_25px_rgba(245,240,206,0.50) " : " hover:text-[#d4af37]"}>
+            <span>My orders</span>
+          </NavLink>
 
         </div>
 
         {/* RIGHT ICONS */}
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/cart" className="hover:text-[#d4af37] transition">
-            <FiShoppingCart size={20} />
+
+            <div className="relative">
+              <FiShoppingCart size={20} />
+
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-1 bg-gray-800 px-1  text-white text-xs  rounded-full">
+                  {cartCount}
+                </span>
+              )}
+            </div>
           </Link>
           <Link to="/login" className="hover:text-[#d4af37] transition">
             <FiUser size={20} />
@@ -53,7 +72,7 @@ const Navbar = () => {
 
       {/* MOBILE OVERLAY MENU */}
       {open && (
-        <div className="fixed top-0 right-0 h-screen w-1/3 bg-[#8b1c62] z-50 p-6 md:hidden shadow-lg">
+        <div className="fixed top-0 right-0 h-screen w-2/4 bg-[#8b1c62] z-50 p-6 md:hidden shadow-lg">
 
           {/* CLOSE BUTTON */}
           <button
@@ -76,10 +95,13 @@ const Navbar = () => {
             <Link to="/cart" onClick={() => setOpen(false)} className="hover:text-[#d4af37]">
               Cart
             </Link>
-
+            <Link to="/my-orders" onClick={() => setOpen(false)} className="hover:text-[#d4af37]">
+              My Orders
+            </Link>
             <Link to="/login" onClick={() => setOpen(false)} className="hover:text-[#d4af37]">
               Login
             </Link>
+
           </div>
         </div>
       )}
